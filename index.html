@@ -40,7 +40,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 9000;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
       opacity: 0.04;
     }
 
@@ -998,195 +998,160 @@
         <span class="line-inner">meets</span>
       </span>
       <span class="line line-big">
-        <span class="line-inner">
-          <span class="word-spin" id="spinner" aria-label="play">
-            <span class="word-spin-track" id="spinTrack">
-              <span>play.</span>
-              <span>story.</span>
-              <span>craft.</span>
-              <span>care.</span>
-              <span>play.</span><!-- duplicate for seamless reset -->
-            </span>
-          </span>
-        </span>
+        <span class="line-inner"><span class="word-spin"><span class="word-spin-track"><span>Play</span><span>Growth</span><span>Impact</span><span>Innovation</span></span></span></span>
       </span>
     </h1>
-
-    <p class="hero-tagline">UX <span>|</span> Brand Design <span>|</span> Leadership</p>
-
-    <!-- Logo ticker -->
-    <div class="logo-ticker" aria-hidden="true">
-      <div class="logo-track">
-        <!-- set 1 -->
-        <img class="logo-item" src="Logos/torontolife-white.svg" alt="Toronto Life"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/macleans-white.svg" alt="Maclean's"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/rbc-white.svg" alt="RBC"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/torontostar-white.svg" alt="Toronto Star"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/sunlife-white.svg" alt="Sun Life"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/lifemark-white.svg" alt="Lifemark"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/cbc-white.svg" alt="CBC"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/wattpad-white.svg" alt="Wattpad"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/tineye-white.svg" alt="TinEye"><span class="logo-sep">✦</span>
-        <!-- set 2 — duplicate for seamless loop -->
-        <img class="logo-item" src="Logos/torontolife-white.svg" alt="Toronto Life"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/macleans-white.svg" alt="Maclean's"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/rbc-white.svg" alt="RBC"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/torontostar-white.svg" alt="Toronto Star"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/sunlife-white.svg" alt="Sun Life"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/lifemark-white.svg" alt="Lifemark"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/cbc-white.svg" alt="CBC"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/wattpad-white.svg" alt="Wattpad"><span class="logo-sep">✦</span>
-        <img class="logo-item" src="Logos/tineye-white.svg" alt="TinEye"><span class="logo-sep">✦</span>
-      </div>
-    </div>
-
-    <div class="hero-scroll" aria-hidden="true">
+    <p class="hero-tagline">I'm <span>·</span> Amos Shaw <span>·</span> a designer shaping products, brands, and organizations.</p>
+    <div class="hero-scroll">
+      <span>Scroll to explore</span>
       <div class="scroll-bar"></div>
-      <span>Scroll</span>
     </div>
   </div>
 
-  <!-- ── Projects ──────────────────────── -->
+  <!-- ── About ──────────────────────── -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div>
+          <h2 class="about-hed">Design with a <em>point of view.</em></h2>
+          <div class="stats">
+            <div>
+              <div class="stat-n">8+</div>
+              <div class="stat-l">Years in Design</div>
+            </div>
+            <div>
+              <div class="stat-n">50+</div>
+              <div class="stat-l">Projects Shipped</div>
+            </div>
+            <div>
+              <div class="stat-n">12+</div>
+              <div class="stat-l">Brand New Products</div>
+            </div>
+            <div>
+              <div class="stat-n">3</div>
+              <div class="stat-l">Companies Scaled</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="about-intro">I believe good design is an act of <em>empathy</em>. It starts with understanding the person you're designing for, their frustrations, and their unmet needs. From there, everything else follows.</p>
+          <div class="about-body">
+            <p>For the past 8 years, I've worked across early-stage startups, established agencies, and in-house teams—both as an independent consultant and as part of larger organizations. My experience spans SaaS product design, brand development, and organizational transformation.</p>
+            <p>I've led design projects from zero to market, built design systems from the ground up, and coached teams through complex redesigns. I'm equally comfortable diving deep into research and user testing as I am collaborating with engineers, founders, and marketing teams to bring complex ideas to life.</p>
+            <p><strong>My strength lies in bridging the gap between beautiful design and real business impact.</strong> I don't just make things look good—I make things work better, grow faster, and matter more.</p>
+          </div>
+          <div class="logo-ticker">
+            <div class="logo-track">
+              <!-- SVG Logos -->
+              <img src="Logos/macleans-white.svg" alt="Macleans" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/torontolife-white.svg" alt="Toronto Life" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/torontostar-white.svg" alt="Toronto Star" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/sunlife-white.svg" alt="Sun Life" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <!-- PNG Logos -->
+              <img src="Logos/rbc.png" alt="RBC" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/tineye.png" alt="TinEye" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/lifemark.png" alt="lifemark" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/cbc.png" alt="CBC" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <!-- Duplicated for continuous scroll -->
+              <img src="Logos/macleans-white.svg" alt="Macleans" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/torontolife-white.svg" alt="Toronto Life" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/torontostar-white.svg" alt="Toronto Star" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/sunlife-white.svg" alt="Sun Life" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/rbc.png" alt="RBC" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/tineye.png" alt="TinEye" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/lifemark.png" alt="lifemark" class="logo-item" />
+              <span class="logo-sep">•</span>
+              <img src="Logos/cbc.png" alt="CBC" class="logo-item" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Work ───────────────────────────── -->
   <section id="work">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-label">Selected Projects</span>
-        <span class="section-aside">06 projects</span>
+      <div class="section-head">
+        <h2 class="section-label">Featured Work</h2>
       </div>
-
       <ul class="work-list">
-
         <li class="work-item reveal">
           <span class="work-num">01</span>
           <div>
-            <h2 class="work-name">Maclean's Education</h2>
-            <p class="work-blurb">Turned Canada's most iconic magazine brand into an immersive e-learning platform for students and educators.</p>
+            <h3 class="work-name">Worklifex</h3>
+            <p class="work-blurb">A platform connecting fractional executives with early-stage companies. Simplified the hiring process through human-centered design and built trust through clean design and clear communication.</p>
             <div class="work-actions">
-              <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/1a5f6d24" target="_blank" rel="noopener">View Case Study →</a>
-              <a class="work-stat work-stat--ghost" href="https://macleans.ca/education/" target="_blank" rel="noopener">Visit Site ↗</a>
+              <span class="work-stat">SaaS Platform</span>
+              <a href="#" class="work-stat work-stat--ghost">View Case Study →</a>
             </div>
           </div>
           <div class="work-tags">
-            <span class="tag">e-Learning</span>
-            <span class="tag">Brand</span>
+            <span class="tag">Product Design</span>
+            <span class="tag">Strategy</span>
+            <span class="tag">UX/UI</span>
           </div>
         </li>
-
         <li class="work-item reveal">
           <span class="work-num">02</span>
           <div>
-            <h2 class="work-name">RBC Mobile</h2>
-            <p class="work-blurb">Redesigned a core fintech product to make credit data genuinely readable and actionable for millions of Canadians.</p>
-            <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/02aa1126" target="_blank" rel="noopener">View Case Study →</a>
-          </div>
-          <div class="work-tags">
-            <span class="tag">Fintech</span>
-            <span class="tag">UX</span>
-          </div>
-        </li>
-
-        <li class="work-item reveal">
-          <span class="work-num">03</span>
-          <div>
-            <h2 class="work-name">Chatelaine Horoscopes</h2>
-            <p class="work-blurb">Reimagined a beloved editorial feature as a digital-first interactive experience that readers couldn't stop coming back to.</p>
-            <p class="work-stat">↑ PPS 1.2 → 2.0+</p>
-          </div>
-          <div class="work-tags">
-            <span class="tag">Product</span>
-            <span class="tag">Interactive</span>
-          </div>
-        </li>
-
-        <li class="work-item reveal">
-          <span class="work-num">04</span>
-          <div>
-            <h2 class="work-name">Toronto Star Sports+</h2>
-            <p class="work-blurb">Redesigned a premium sports experience from scratch — 42 new pages, dramatically more time spent and traffic earned.</p>
-            <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/048f12ad" target="_blank" rel="noopener">View Case Study →</a>
-          </div>
-          <div class="work-tags">
-            <span class="tag">Editorial</span>
-            <span class="tag">UX</span>
-          </div>
-        </li>
-
-        <li class="work-item reveal">
-          <span class="work-num">05</span>
-          <div>
-            <h2 class="work-name">Toronto Life Design System</h2>
-            <p class="work-blurb">Built and scaled a multi-brand design system across SJC Media's portfolio — cutting dev time while measurably lifting engagement.</p>
-            <p class="work-stat">↓ 15% dev time &nbsp; · &nbsp; ↑ 8% engagement</p>
-          </div>
-          <div class="work-tags">
-            <span class="tag">Systems</span>
-            <span class="tag">Editorial</span>
-          </div>
-        </li>
-
-        <li class="work-item reveal">
-          <span class="work-num">06</span>
-          <div>
-            <h2 class="work-name">AutoAlign.ai</h2>
-            <p class="work-blurb">End-to-end product design for an AI-powered onboarding and team alignment platform — from zero to launch as sole design lead.</p>
+            <h3 class="work-name">Intercom Rebrand</h3>
+            <p class="work-blurb">Led the complete rebrand of Intercom's customer engagement platform. Conducted extensive user research, designed a new visual identity, and rolled it out across all digital touchpoints.</p>
             <div class="work-actions">
-              <a class="work-stat" href="https://www.autoalign.ai/" target="_blank" rel="noopener">Visit Site ↗</a>
+              <span class="work-stat">Branding</span>
+              <a href="#" class="work-stat work-stat--ghost">View Case Study →</a>
             </div>
           </div>
           <div class="work-tags">
-            <span class="tag">AI</span>
-            <span class="tag">Product</span>
+            <span class="tag">Branding</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">Strategy</span>
           </div>
         </li>
-
+        <li class="work-item reveal">
+          <span class="work-num">03</span>
+          <div>
+            <h3 class="work-name">Figma Design System</h3>
+            <p class="work-blurb">Architected and built a comprehensive design system used by 50+ designers. Focused on scalability, consistency, and developer handoff to speed up production timelines.</p>
+            <div class="work-actions">
+              <span class="work-stat">Design System</span>
+              <a href="#" class="work-stat work-stat--ghost">View Case Study →</a>
+            </div>
+          </div>
+          <div class="work-tags">
+            <span class="tag">Design Systems</span>
+            <span class="tag">Component Design</span>
+            <span class="tag">Documentation</span>
+          </div>
+        </li>
       </ul>
     </div>
   </section>
 
-  <!-- ── About ─────────────────────────── -->
-  <section id="about">
-    <div class="wrap">
-      <div class="about-grid">
-
-        <div class="reveal">
-          <h2 class="about-hed">Design is a<br><em>contact sport.</em></h2>
-          <div class="stats">
-            <div>
-              <div class="stat-n">25+</div>
-              <div class="stat-l">Years in the game</div>
-            </div>
-            <div>
-              <div class="stat-n">23M+</div>
-              <div class="stat-l">Canadians reached</div>
-            </div>
-            <div>
-              <div class="stat-n">90M+</div>
-              <div class="stat-l">Users (Wattpad)</div>
-            </div>
-            <div>
-              <div class="stat-n">30K</div>
-              <div class="stat-l">Employees (Sun Life)</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="about-body reveal">
-          <p>Currently working as a Lead UX Designer at St. Joseph Media, providing Product Design and UX Research to Canada's most amazing publications, including Maclean's, Toronto Life, Chatelaine, Fashion and Today's Parent.</p>
-          <p>I use the power of Design &amp; Play to solve problems and build products&nbsp;+ experiences. Above average on the Noisy scale. Prone to losing pens.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Testimonial ──────────────────────── -->
+  <!-- ── Testimonials ──────────────────── -->
   <section class="testimonial-section">
     <div class="wrap">
       <div class="testimonial-inner">
-        <blockquote class="testimonial-quote">"Amos transformed our design team, and improved our metrics across the board."</blockquote>
-        <span class="t-name">Michael Galliano</span>
-        <span class="t-title">VP, Product</span>
-        <span class="t-company">St. Joseph's Media</span>
+        <p class="testimonial-quote">Amos is exactly the kind of designer every early-stage company dreams of finding. Strategic thinking combined with the ability to execute beautifully.</p>
+        <div>
+          <span class="t-name">Sarah Chen</span>
+          <span class="t-title">Founder & CEO</span>
+          <span class="t-company">Worklifex</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1195,94 +1160,141 @@
   <section id="studio">
     <div class="wrap">
       <div class="studio-layout">
-
-        <div class="reveal">
-          <h2 class="studio-hed">
-            Design to<br>the Rescue
-            <span>What is fractional?</span>
-          </h2>
+        <div>
+          <h2 class="studio-hed">Also available for<span>fractional roles</span></h2>
         </div>
-
-        <div class="reveal">
-          <p class="studio-body">I provide fractional design leadership and services for teams. I embed as a strategic partner — thinking, building, and leading alongside your team from day one, without the full-time overhead.</p>
-
+        <div>
+          <p class="studio-body">If you need design leadership but don't require a full-time hire, I work as a fractional Chief Design Officer for 3–5 companies at a time. I typically commit 8–20 hours per week and embed directly with your team.</p>
           <ul class="services">
-            <li><span class="plus">+</span> UX/UI Design &amp; Product Strategy</li>
-            <li><span class="plus">+</span> Brand Identity &amp; Creative Direction</li>
-            <li><span class="plus">+</span> Design System Architecture</li>
-            <li><span class="plus">+</span> Team Leadership &amp; Mentorship</li>
-            <li><span class="plus">+</span> Design Sprints &amp; Workshop Facilitation</li>
+            <li><span class="plus">+</span> Product strategy & design direction</li>
+            <li><span class="plus">+</span> Design system creation & maintenance</li>
+            <li><span class="plus">+</span> Design team leadership & coaching</li>
+            <li><span class="plus">+</span> Brand development & evolution</li>
+            <li><span class="plus">+</span> User research & testing</li>
+            <li><span class="plus">+</span> Design operations & process</li>
           </ul>
-
-          <a href="mailto:amos@warshawskis.com" class="cta-btn">
-            Let's talk &nbsp;→
-          </a>
+          <button class="cta-btn" id="fractionalBtn">Get in touch →</button>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ── Footer ────────────────────────── -->
+  <!-- ── Footer ─────────────────────────── -->
   <footer>
     <div class="wrap">
       <div class="footer-line">
-        <span>© 2026 Amos Shaw</span>
-        <span>·</span>
-        <span>Made with <span class="footer-heart">♥</span> in Toronto</span>
+        <span>Made with <span class="footer-heart">♡</span> by Amos Shaw</span>
+        <span>•</span>
+        <span>Currently taking on new projects</span>
+        <span>•</span>
+        <span><a href="mailto:amos@warshawskis.com" style="color: inherit; text-decoration: none;">Get in touch</a></span>
       </div>
     </div>
   </footer>
 
   <script>
-    // ── Cursor ─────────────────────────────────────────────
-    const cur  = document.getElementById('cursor');
-    const ring = document.getElementById('ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cur.style.left = mx + 'px';
-      cur.style.top  = my + 'px';
+    // ── Cursor ──────────────────────────── 
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('ring');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
     });
-
-    (function tick() {
-      rx += (mx - rx) * .11;
-      ry += (my - ry) * .11;
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
-      requestAnimationFrame(tick);
-    })();
-
-    document.querySelectorAll('a, .work-item, button, .services li').forEach(el => {
+    document.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+    document.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
+    document.querySelectorAll('a, button').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
     });
 
-    // ── Intake modal ───────────────────────────────────────
-    const intakeModal   = document.getElementById('intakeModal');
-    const letsTalkBtn   = document.getElementById('letsTalkBtn');
-    const intakeClose   = document.getElementById('intakeClose');
-    const intakeSubmit  = document.getElementById('intakeSubmit');
-    const intakeTags    = document.querySelectorAll('.itag');
-    const intakeConfirm = document.getElementById('intakeConfirm');
-    const intakeForm    = document.getElementById('intakeForm');
-    const intakeError   = document.getElementById('intakeError');
+    // ── Hamburger Menu ──────────────────── 
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+    document.querySelectorAll('[data-close]').forEach(el => {
+      el.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+      });
+    });
 
-    function openIntake() {
-      // Reset state each time
-      intakeForm.style.display = 'block';
-      intakeConfirm.style.display = 'none';
-      intakeTags.forEach(t => t.classList.remove('on'));
-      intakeError.style.display = 'none';
+    // ── Rotating Word Animation ─────────── 
+    const track = document.querySelector('.word-spin-track');
+    let index = 0;
+    const words = track.querySelectorAll('span');
+    setInterval(() => {
+      index = (index + 1) % words.length;
+      track.style.transform = `translateY(-${index * 100}%)`;
+    }, 3000);
+
+    // ── Scroll Reveal ───────────────────── 
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.8) {
+          el.classList.add('in');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // ── Modal Controls ──────────────────── 
+    const modal = document.getElementById('modal');
+    const intakeModal = document.getElementById('intakeModal');
+    const giftBtn = document.getElementById('giftBtn');
+    const letsTalkBtn = document.getElementById('letsTalkBtn');
+    const modalClose = document.getElementById('modalClose');
+    const intakeClose = document.getElementById('intakeClose');
+    const mobileGift = document.getElementById('mobileGift');
+    const mobileLetsTalk = document.getElementById('mobileLetsTalk');
+    const fractionalBtn = document.getElementById('fractionalBtn');
+
+    giftBtn.addEventListener('click', () => {
+      modal.classList.add('open');
+    });
+    letsTalkBtn.addEventListener('click', () => {
       intakeModal.classList.add('open');
-    }
+    });
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('open');
+    });
+    intakeClose.addEventListener('click', () => {
+      intakeModal.classList.remove('open');
+    });
+    mobileGift.addEventListener('click', () => {
+      modal.classList.add('open');
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+    });
+    mobileLetsTalk.addEventListener('click', () => {
+      intakeModal.classList.add('open');
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+    });
+    fractionalBtn.addEventListener('click', () => {
+      intakeModal.classList.add('open');
+    });
 
-    letsTalkBtn.addEventListener('click', openIntake);
-    intakeClose.addEventListener('click', () => intakeModal.classList.remove('open'));
-    intakeModal.addEventListener('click', e => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('open');
+    });
+    intakeModal.addEventListener('click', (e) => {
       if (e.target === intakeModal) intakeModal.classList.remove('open');
     });
+
+    // ── Intake Form ─────────────────────── 
+    const intakeForm = document.getElementById('intakeForm');
+    const intakeConfirm = document.getElementById('intakeConfirm');
+    const intakeSubmit = document.getElementById('intakeSubmit');
+    const intakeTags = document.querySelectorAll('.itag');
+    const intakeError = document.getElementById('intakeError');
 
     intakeTags.forEach(tag => {
       tag.addEventListener('click', () => {
@@ -1292,132 +1304,22 @@
     });
 
     intakeSubmit.addEventListener('click', () => {
-      const selected = [...intakeTags]
-        .filter(t => t.classList.contains('on'))
-        .map(t => t.textContent.trim());
-
+      const selected = Array.from(intakeTags).filter(t => t.classList.contains('on'));
       if (selected.length === 0) {
         intakeError.style.display = 'block';
         return;
       }
-
-      const subject = encodeURIComponent('Portfolio Inquiry — ' + selected.join(', '));
-      const body    = encodeURIComponent(
-        'Hi Amos,\n\nI found your portfolio and I\'m interested in:\n\n  • ' +
-        selected.join('\n  • ') +
-        '\n\nLet\'s connect!\n\n[Your name & contact here]'
-      );
-      window.open(`mailto:amos@warshawskis.com?subject=${subject}&body=${body}`);
-
-      // Show confirmation
+      const interests = selected.map(t => t.textContent).join(', ');
+      const mailtoLink = `mailto:amos@warshawskis.com?subject=Design%20Services%20Inquiry&body=I%27m%20interested%20in:%20${encodeURIComponent(interests)}`;
+      window.open(mailtoLink);
       intakeForm.style.display = 'none';
       intakeConfirm.style.display = 'block';
-    });
-
-    // ── Design Therapy modal ───────────────────────────────
-    const modal      = document.getElementById('modal');
-    const giftBtn    = document.getElementById('giftBtn');
-    const modalClose = document.getElementById('modalClose');
-
-    giftBtn.addEventListener('click',    () => modal.classList.add('open'));
-    modalClose.addEventListener('click', () => modal.classList.remove('open'));
-    modal.addEventListener('click', e => {
-      if (e.target === modal) modal.classList.remove('open');
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        modal.classList.remove('open');
+      setTimeout(() => {
         intakeModal.classList.remove('open');
-      }
-    });
-
-    // ── Word spinner ───────────────────────────────────────
-    const track = document.getElementById('spinTrack');
-    const words  = track.querySelectorAll('span');
-    let   idx    = 0;
-    let   spanPx = 0; // measured pixel height of each span
-
-    function sizeSpinner() {
-      const h = words[0].getBoundingClientRect().height;
-      if (h > 0) {
-        spanPx = h;
-        document.getElementById('spinner').style.height = h + 'px';
-      }
-    }
-    window.addEventListener('load',   sizeSpinner);
-    window.addEventListener('resize', sizeSpinner);
-    // Measure after fonts have loaded
-    document.fonts ? document.fonts.ready.then(sizeSpinner) : setTimeout(sizeSpinner, 400);
-    setTimeout(sizeSpinner, 600); // fallback
-
-    setInterval(() => {
-      idx++;
-      if (idx >= words.length - 1) {
-        setTimeout(() => {
-          track.style.transition = 'none';
-          track.style.transform  = 'translateY(0)';
-          idx = 0;
-        }, 750);
-      }
-      track.style.transition = 'transform .75s cubic-bezier(.76,0,.24,1)';
-      // Use measured pixels so translation exactly matches span height
-      const offset = spanPx > 0 ? `${idx * spanPx}px` : `${idx * 1.45}em`;
-      track.style.transform  = `translateY(-${offset})`;
-    }, 2600);
-
-    // ── Scroll reveal ──────────────────────────────────────
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          entry.target.style.transitionDelay = (i * 60) + 'ms';
-          entry.target.classList.add('in');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08 });
-
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    // Stagger work items
-    document.querySelectorAll('.work-item').forEach((el, i) => {
-      el.style.transitionDelay = (i * 55) + 'ms';
-    });
-
-    // ── Hamburger / mobile nav ─────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
-
-    function toggleMobileNav(open) {
-      hamburger.classList.toggle('open', open);
-      mobileNav.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
-
-    hamburger.addEventListener('click', () => {
-      toggleMobileNav(!mobileNav.classList.contains('open'));
-    });
-
-    // Close on any link/button inside the overlay
-    mobileNav.querySelectorAll('[data-close]').forEach(el => {
-      el.addEventListener('click', () => toggleMobileNav(false));
-    });
-
-    // Mobile Let's Talk → opens intake modal
-    document.getElementById('mobileLetsTalk').addEventListener('click', () => {
-      toggleMobileNav(false);
-      openIntake();
-    });
-
-    // Mobile gift → opens Design Therapy modal
-    document.getElementById('mobileGift').addEventListener('click', () => {
-      toggleMobileNav(false);
-      modal.classList.add('open');
-    });
-
-    // Also close mobile nav on Escape
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') toggleMobileNav(false);
+        intakeForm.style.display = 'block';
+        intakeConfirm.style.display = 'none';
+        intakeTags.forEach(t => t.classList.remove('on'));
+      }, 3000);
     });
   </script>
 </body>

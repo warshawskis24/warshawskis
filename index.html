@@ -74,16 +74,13 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      padding: 26px 48px;
+      padding: 22px 48px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    nav::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(14,14,12,.95) 0%, transparent 100%);
-      z-index: -1;
+      background: rgba(14,14,12,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
     .nav-logo {
       font-family: var(--serif);
@@ -98,7 +95,7 @@
       align-items: center;
     }
     .nav-right a {
-      color: var(--muted);
+      color: rgba(242,237,227,.65);
       text-decoration: none;
       font-size: 12px; font-weight: 600;
       letter-spacing: .08em;
@@ -106,6 +103,83 @@
       transition: color .2s;
     }
     .nav-right a:hover { color: var(--text); }
+
+    /* Hamburger — desktop hidden, mobile shown */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: none;
+      padding: 4px;
+      width: 32px; height: 32px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--text);
+      transition: transform .35s cubic-bezier(.16,1,.3,1), opacity .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile nav overlay */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 190;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 100px 40px 60px;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: all; }
+    .mnav-link {
+      font-family: var(--serif);
+      font-size: clamp(40px, 12vw, 64px);
+      font-weight: 300;
+      letter-spacing: -.025em;
+      line-height: 1.15;
+      color: var(--text);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: none;
+      padding: 0;
+      transition: color .2s;
+    }
+    .mnav-link:hover { color: var(--accent); }
+    .mnav-sub {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      width: 100%;
+    }
+    .mnav-sub-link {
+      font-size: 13px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: none;
+      padding: 0;
+      text-align: left;
+      transition: color .2s;
+    }
+    .mnav-sub-link:hover { color: var(--accent); }
 
     /* Gift box CTA */
     .gift-btn {
@@ -228,15 +302,15 @@
       font-family: var(--serif);
       font-weight: 300;
       letter-spacing: -.035em;
+      text-align: center;
     }
 
     /* Each line clips its slide-up animation */
     .hero-headline .line {
       display: block;
       overflow: hidden;
-      /* generous room for descenders (g, y, p) — 5-10px extra */
-      padding-bottom: 0.22em;
-      margin-bottom: -0.14em;
+      padding-bottom: 0.18em;
+      margin-bottom: -0.13em;
     }
     .hero-headline .line-inner {
       display: block;
@@ -250,13 +324,34 @@
     @keyframes slideUp { to { transform: translateY(0); } }
 
     /* "Design" and the spinning word — big */
-    .line-big  { font-size: clamp(64px, 10.5vw, 148px); line-height: .92; }
-    /* "meets" — smaller transitional word */
+    .line-big { font-size: clamp(64px, 10.5vw, 148px); line-height: .88; }
+
+    /* "meets" — pull hard against Design, shift right */
     .line-meets {
       font-size: clamp(32px, 5vw, 72px);
-      line-height: 1;
+      line-height: .9;
       color: var(--muted);
+      margin-top: -0.3em;
     }
+    .line-meets .line-inner { padding-left: 24px; }
+
+    /* Third line (animated word) — pull up tight under meets, shift right */
+    .hero-headline .line:nth-child(3) { margin-top: -0.22em; }
+    .hero-headline .line:nth-child(3) .line-inner { padding-left: 24px; }
+
+    /* Hero tagline — sits flush under the animated word */
+    .hero-tagline {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 14px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn .8s ease .7s forwards;
+    }
+    .hero-tagline span { color: rgba(242,237,227,.25); margin: 0 10px; }
 
     /* Rotating word */
     .word-spin {
@@ -499,6 +594,13 @@
     }
 
     /* ── Fractional section ─────────────── */
+    #studio {
+      display: flex;
+      align-items: center;
+      min-height: 80vh;
+      padding: 140px 0;
+    }
+    #studio .wrap { width: 100%; }
     .studio-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -542,17 +644,25 @@
     .cta-btn {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
       margin-top: 44px;
-      font-size: 13px; font-weight: 700;
-      letter-spacing: .09em; text-transform: uppercase;
+      font-family: var(--sans);
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(242,237,227,.8);
+      background: none;
+      border: 1px solid rgba(242,237,227,.45);
+      padding: 9px 20px; border-radius: 100px;
+      text-decoration: none;
+      cursor: none;
+      transition: border-color .25s, color .25s, background .25s, gap .25s;
+    }
+    .cta-btn:hover {
+      border-color: var(--accent);
       color: var(--bg);
       background: var(--accent);
-      padding: 16px 32px; border-radius: 3px;
-      text-decoration: none;
-      transition: gap .3s, transform .25s;
+      gap: 14px;
     }
-    .cta-btn:hover { gap: 22px; transform: translateY(-2px); }
 
     /* ── Testimonial ────────────────────── */
     .testimonial-section {
@@ -628,17 +738,21 @@
     /* ── Let's Talk button ──────────────── */
     .lets-talk-btn {
       background: none;
-      border: 1px solid rgba(242,237,227,.22);
-      color: var(--muted);
-      padding: 8px 18px;
+      border: 1px solid rgba(242,237,227,.45);
+      color: rgba(242,237,227,.8);
+      padding: 9px 20px;
       border-radius: 100px;
       font-family: var(--sans);
       font-size: 12px; font-weight: 700;
       letter-spacing: .08em; text-transform: uppercase;
       cursor: none;
-      transition: border-color .25s, color .25s;
+      transition: border-color .25s, color .25s, background .25s;
     }
-    .lets-talk-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lets-talk-btn:hover {
+      border-color: var(--accent);
+      color: var(--bg);
+      background: var(--accent);
+    }
 
     /* ── Intake form ────────────────────── */
     .intake-grid {
@@ -680,14 +794,97 @@
       display: none;
     }
 
+    /* ── Logo ticker ────────────────────── */
+    .logo-ticker {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      overflow: hidden;
+      margin-top: 36px;
+      padding: 14px 0;
+      opacity: 0;
+      animation: fadeIn .8s ease .9s forwards;
+    }
+    .logo-ticker::before,
+    .logo-ticker::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .logo-ticker::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+    .logo-ticker::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
+    }
+    .logo-track {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: max-content;
+      animation: tickerRoll 28s linear infinite;
+    }
+    .logo-track:hover { animation-play-state: paused; }
+    @keyframes tickerRoll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .logo-item {
+      height: 34px;
+      width: auto;
+      flex-shrink: 0;
+      display: block;
+      filter: brightness(0) invert(1);
+      opacity: 0.55;
+      transition: opacity .25s;
+    }
+    .logo-item:hover { opacity: 0.9; }
+    .logo-sep {
+      color: rgba(242,237,227,.15);
+      font-size: 14px;
+      flex-shrink: 0;
+      margin: 0 36px;
+    }
+
+    /* ── Work actions (dual buttons) ────── */
+    .work-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .35s ease .1s, transform .35s ease .1s;
+    }
+    .work-item:hover .work-actions { opacity: 1; transform: translateY(0); }
+    /* Stat inside actions — reset its own animation since parent handles it */
+    .work-actions .work-stat {
+      margin-top: 0;
+      opacity: 1;
+      transform: none;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .work-stat--ghost {
+      background: none !important;
+      border: 1px solid rgba(198,241,53,.45);
+      color: var(--accent) !important;
+    }
+    .work-stat--ghost:hover {
+      background: rgba(198,241,53,.12) !important;
+    }
+
     /* ── Mobile ─────────────────────────── */
     @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      .nav-right a { display: none; }
-      .lets-talk-btn { display: none; }
-      /* hero: shift down ~100px from center, scroll pins to bottom */
+      nav { padding: 18px 24px; }
+      .nav-right { display: none; }
+      .hamburger { display: flex; }
       .hero {
-        position: relative;
         justify-content: flex-start;
         padding: 210px 24px 100px;
       }
@@ -703,6 +900,7 @@
       .about-grid, .studio-layout { grid-template-columns: 1fr; gap: 52px; }
       .work-item { grid-template-columns: 36px 1fr; }
       .work-tags { display: none; }
+      .testimonial-inner { padding: 0 clamp(16px, 6vw, 80px); }
     }
   </style>
 </head>
@@ -762,6 +960,17 @@
     </div>
   </div>
 
+  <!-- ── Mobile nav overlay ───────────── -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#work"   class="mnav-link" data-close>Projects</a>
+    <a href="#about"  class="mnav-link" data-close>About</a>
+    <a href="#studio" class="mnav-link" data-close>Fractional</a>
+    <div class="mnav-sub">
+      <button class="mnav-sub-link" id="mobileLetsTalk" data-close>Let's Talk →</button>
+      <button class="mnav-sub-link" id="mobileGift" data-close>🎁 Free Design Therapy</button>
+    </div>
+  </div>
+
   <!-- ── Nav ──────────────────────────── -->
   <nav>
     <a href="#" class="nav-logo">Amos Shaw</a>
@@ -774,6 +983,9 @@
         🎁
       </button>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- ── Hero ─────────────────────────── -->
@@ -800,6 +1012,34 @@
       </span>
     </h1>
 
+    <p class="hero-tagline">UX <span>|</span> Brand Design <span>|</span> Leadership</p>
+
+    <!-- Logo ticker -->
+    <div class="logo-ticker" aria-hidden="true">
+      <div class="logo-track">
+        <!-- set 1 -->
+        <img class="logo-item" src="Logos/torontolife-white.svg" alt="Toronto Life"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/macleans-white.svg" alt="Maclean's"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/rbc-white.svg" alt="RBC"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/torontostar-white.svg" alt="Toronto Star"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/sunlife-white.svg" alt="Sun Life"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/lifemark-white.svg" alt="Lifemark"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/cbc-white.svg" alt="CBC"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/wattpad-white.svg" alt="Wattpad"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/tineye-white.svg" alt="TinEye"><span class="logo-sep">✦</span>
+        <!-- set 2 — duplicate for seamless loop -->
+        <img class="logo-item" src="Logos/torontolife-white.svg" alt="Toronto Life"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/macleans-white.svg" alt="Maclean's"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/rbc-white.svg" alt="RBC"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/torontostar-white.svg" alt="Toronto Star"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/sunlife-white.svg" alt="Sun Life"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/lifemark-white.svg" alt="Lifemark"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/cbc-white.svg" alt="CBC"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/wattpad-white.svg" alt="Wattpad"><span class="logo-sep">✦</span>
+        <img class="logo-item" src="Logos/tineye-white.svg" alt="TinEye"><span class="logo-sep">✦</span>
+      </div>
+    </div>
+
     <div class="hero-scroll" aria-hidden="true">
       <div class="scroll-bar"></div>
       <span>Scroll</span>
@@ -821,7 +1061,10 @@
           <div>
             <h2 class="work-name">Maclean's Education</h2>
             <p class="work-blurb">Turned Canada's most iconic magazine brand into an immersive e-learning platform for students and educators.</p>
-            <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/1a5f6d24" target="_blank" rel="noopener">View Case Study →</a>
+            <div class="work-actions">
+              <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/1a5f6d24" target="_blank" rel="noopener">View Case Study →</a>
+              <a class="work-stat work-stat--ghost" href="https://macleans.ca/education/" target="_blank" rel="noopener">Visit Site ↗</a>
+            </div>
           </div>
           <div class="work-tags">
             <span class="tag">e-Learning</span>
@@ -886,7 +1129,9 @@
           <div>
             <h2 class="work-name">AutoAlign.ai</h2>
             <p class="work-blurb">End-to-end product design for an AI-powered onboarding and team alignment platform — from zero to launch as sole design lead.</p>
-            <p class="work-stat">AI · Product Design · 2024–present</p>
+            <div class="work-actions">
+              <a class="work-stat" href="https://www.autoalign.ai/" target="_blank" rel="noopener">Visit Site ↗</a>
+            </div>
           </div>
           <div class="work-tags">
             <span class="tag">AI</span>
@@ -1137,6 +1382,42 @@
     // Stagger work items
     document.querySelectorAll('.work-item').forEach((el, i) => {
       el.style.transitionDelay = (i * 55) + 'ms';
+    });
+
+    // ── Hamburger / mobile nav ─────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    function toggleMobileNav(open) {
+      hamburger.classList.toggle('open', open);
+      mobileNav.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      toggleMobileNav(!mobileNav.classList.contains('open'));
+    });
+
+    // Close on any link/button inside the overlay
+    mobileNav.querySelectorAll('[data-close]').forEach(el => {
+      el.addEventListener('click', () => toggleMobileNav(false));
+    });
+
+    // Mobile Let's Talk → opens intake modal
+    document.getElementById('mobileLetsTalk').addEventListener('click', () => {
+      toggleMobileNav(false);
+      openIntake();
+    });
+
+    // Mobile gift → opens Design Therapy modal
+    document.getElementById('mobileGift').addEventListener('click', () => {
+      toggleMobileNav(false);
+      modal.classList.add('open');
+    });
+
+    // Also close mobile nav on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') toggleMobileNav(false);
     });
   </script>
 </body>

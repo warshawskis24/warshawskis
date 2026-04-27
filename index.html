@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amos Shaw — Design + Play</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..900;1,9..144,200..900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0E0E0C;
+      --text:   #F2EDE3;
+      --accent: #C6F135;
+      --muted:  rgba(242, 237, 227, 0.42);
+      --border: rgba(242, 237, 227, 0.09);
+      --serif:  'Fraunces', serif;
+      --sans:   'Syne', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Grain ──────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    /* ── Cursor ─────────────────────────── */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s;
+    }
+    .cursor-ring {
+      /* 25% smaller than before: 38→28, hover 60→45 */
+      width: 28px; height: 28px;
+      border: 1px solid rgba(198, 241, 53, 0.35);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width .3s, height .3s, border-color .3s;
+    }
+    body.hovered .cursor      { width: 14px; height: 14px; }
+    body.hovered .cursor-ring { width: 45px; height: 45px; border-color: var(--accent); }
+
+    /* ── Nav ────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 26px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(14,14,12,.95) 0%, transparent 100%);
+      z-index: -1;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 17px; font-weight: 400;
+      letter-spacing: -.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-right {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+    .nav-right a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-right a:hover { color: var(--text); }
+
+    /* Gift box CTA */
+    .gift-btn {
+      background: none;
+      border: none;
+      cursor: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      font-size: 24px;
+      line-height: 1;
+      transition: transform .2s;
+      animation: giftWiggle 7s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+    .gift-btn:hover { transform: scale(1.15); }
+
+    @keyframes giftWiggle {
+      0%, 80%, 100% { transform: rotate(0deg); }
+      83%  { transform: rotate(-14deg); }
+      87%  { transform: rotate(14deg); }
+      91%  { transform: rotate(-9deg); }
+      95%  { transform: rotate(5deg); }
+      98%  { transform: rotate(-2deg); }
+    }
+
+    /* ── Modal ──────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(14,14,12,.88);
+      backdrop-filter: blur(12px);
+      z-index: 8000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: #18180F;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 56px 52px 48px;
+      max-width: 520px;
+      width: 90%;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute; top: 20px; right: 24px;
+      background: none; border: none; cursor: none;
+      color: var(--muted);
+      font-size: 28px; line-height: 1;
+      transition: color .2s;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    .modal-tag {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .modal-title {
+      font-family: var(--serif);
+      font-size: 36px; font-weight: 300;
+      letter-spacing: -.025em; line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .modal-title em { font-style: italic; color: var(--accent); }
+    .modal-body {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+    .modal-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 28px;
+      border-radius: 3px;
+      transition: gap .3s, transform .25s;
+    }
+    .modal-cta:hover { gap: 20px; transform: translateY(-2px); }
+    .modal-note {
+      margin-top: 18px;
+      font-size: 12px;
+      color: rgba(242,237,227,.28);
+      letter-spacing: .04em;
+    }
+
+    /* ── Hero ───────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 110px 48px 80px; /* top clears nav */
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-weight: 300;
+      letter-spacing: -.035em;
+    }
+
+    /* Each line clips its slide-up animation */
+    .hero-headline .line {
+      display: block;
+      overflow: hidden;
+      /* generous room for descenders (g, y, p) — 5-10px extra */
+      padding-bottom: 0.22em;
+      margin-bottom: -0.14em;
+    }
+    .hero-headline .line-inner {
+      display: block;
+      transform: translateY(115%);
+      animation: slideUp .9s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .hero-headline .line:nth-child(1) .line-inner { animation-delay: .1s; }
+    .hero-headline .line:nth-child(2) .line-inner { animation-delay: .24s; }
+    .hero-headline .line:nth-child(3) .line-inner { animation-delay: .38s; }
+
+    @keyframes slideUp { to { transform: translateY(0); } }
+
+    /* "Design" and the spinning word — big */
+    .line-big  { font-size: clamp(64px, 10.5vw, 148px); line-height: .92; }
+    /* "meets" — smaller transitional word */
+    .line-meets {
+      font-size: clamp(32px, 5vw, 72px);
+      line-height: 1;
+      color: var(--muted);
+    }
+
+    /* Rotating word */
+    .word-spin {
+      display: inline-block;
+      overflow: hidden;
+      /* 1.45em gives y/g/p descenders full room */
+      height: 1.45em;
+      vertical-align: bottom;
+    }
+    .word-spin-track {
+      display: flex;
+      flex-direction: column;
+    }
+    .word-spin-track span {
+      display: block;
+      /* must match .word-spin height so pixel-based JS translation is accurate */
+      height: 1.45em;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1;
+      padding-top: 0;
+    }
+
+    /* ── Hero scroll prompt ─────────────── */
+    .hero-scroll {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn .8s ease 1s forwards;
+    }
+    .scroll-bar {
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: grow 2.2s ease-in-out infinite;
+    }
+    @keyframes grow {
+      0%, 100% { transform: scaleY(1); opacity: .5; }
+      50%       { transform: scaleY(1.4); opacity: 1; }
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ── External link button ───────────── */
+    .work-ext {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      line-height: 1;
+      margin-top: 8px;
+      transition: background .25s, border-color .25s, color .25s, transform .25s;
+      flex-shrink: 0;
+    }
+    .work-ext:hover,
+    .work-item:hover .work-ext {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      transform: rotate(-45deg);
+    }
+
+    /* ── Layout helpers ─────────────────── */
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    section {
+      padding: 128px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 64px;
+    }
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .section-aside {
+      font-family: var(--serif);
+      font-size: 13px; font-style: italic;
+      color: var(--muted);
+    }
+
+    /* ── Projects list ──────────────────── */
+    .work-list { list-style: none; }
+
+    .work-item {
+      position: relative;
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      gap: 24px;
+      align-items: start;
+      transition: border-color .35s;
+      overflow: hidden;
+    }
+    .work-item:last-child { border-bottom: 1px solid var(--border); }
+
+    .work-item::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(100deg, rgba(198,241,53,.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .4s;
+    }
+    .work-item:hover { border-color: rgba(198, 241, 53, .25); }
+    .work-item:hover::before { opacity: 1; }
+
+    .work-num {
+      font-family: var(--serif);
+      font-size: 12px; font-style: italic;
+      color: var(--muted);
+      padding-top: 8px;
+    }
+
+    .work-name {
+      font-family: var(--serif);
+      font-size: clamp(30px, 4.5vw, 54px);
+      font-weight: 300;
+      letter-spacing: -.025em; line-height: 1.05;
+      transition: color .3s;
+    }
+    .work-item:hover .work-name { color: var(--accent); }
+
+    .work-blurb {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px; line-height: 1.65;
+      max-height: 0; overflow: hidden;
+      opacity: 0;
+      transition: max-height .45s ease, opacity .35s ease, margin .35s ease;
+    }
+    .work-item:hover .work-blurb {
+      max-height: 80px;
+      opacity: 1;
+      margin-top: 14px;
+    }
+
+    /* Metric bar — accent bg, dark text */
+    .work-stat {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .05em;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 5px 13px;
+      border-radius: 3px;
+      margin-top: 12px;
+      opacity: 0;
+      transform: translateY(6px);
+      text-decoration: none;
+      transition: opacity .35s ease .1s, transform .35s ease .1s, background .2s, color .2s;
+    }
+    .work-item:hover .work-stat { opacity: 1; transform: translateY(0); }
+    /* Linked variant — "View Case Study" */
+    a.work-stat:hover { background: var(--text); color: var(--bg); }
+
+    .work-tags {
+      display: flex; flex-direction: column;
+      gap: 7px; padding-top: 8px;
+      align-items: flex-end;
+    }
+    .tag {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 2px;
+      transition: color .3s, border-color .3s;
+    }
+    .work-item:hover .tag { color: var(--accent); border-color: rgba(198,241,53,.3); }
+
+    /* ── About ──────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .about-hed {
+      font-family: var(--serif);
+      font-size: clamp(38px, 5.5vw, 72px);
+      font-weight: 300; line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+    .about-hed em { font-style: italic; color: var(--accent); }
+
+    .stats {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px 24px;
+    }
+    .stat-n {
+      font-family: var(--serif);
+      font-size: 52px; font-weight: 300;
+      letter-spacing: -.04em; line-height: 1;
+    }
+    .stat-l {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .09em; text-transform: uppercase;
+      color: var(--muted); margin-top: 6px;
+    }
+
+    .about-body {
+      font-size: 16px; color: var(--muted);
+      line-height: 1.85;
+    }
+    .about-body p + p { margin-top: 22px; }
+    .about-body strong { color: var(--text); font-weight: 600; }
+    .about-intro {
+      font-family: var(--serif);
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.55; letter-spacing: -.01em;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    /* ── Fractional section ─────────────── */
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .studio-hed {
+      font-family: var(--serif);
+      font-size: clamp(44px, 6.5vw, 88px);
+      font-weight: 300;
+      letter-spacing: -.04em; line-height: .92;
+    }
+    .studio-hed span {
+      display: block;
+      font-style: italic;
+      color: var(--accent);
+      font-size: .52em;
+    }
+    .studio-body {
+      font-size: 16px; color: var(--muted);
+      line-height: 1.85;
+    }
+    .services {
+      margin-top: 36px;
+      list-style: none;
+      display: flex; flex-direction: column;
+      gap: 14px;
+    }
+    .services li {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 15px; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      transition: color .25s;
+    }
+    .services li:hover { color: var(--text); }
+    .services li .plus { color: var(--accent); font-weight: 800; }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 44px;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 16px 32px; border-radius: 3px;
+      text-decoration: none;
+      transition: gap .3s, transform .25s;
+    }
+    .cta-btn:hover { gap: 22px; transform: translateY(-2px); }
+
+    /* ── Testimonial ────────────────────── */
+    .testimonial-section {
+      background: var(--accent);
+      padding: 100px 0;
+      border-top: none;
+    }
+    .testimonial-inner {
+      /* 120px on large screens, scales down gracefully, min 24px on mobile */
+      padding: 0 clamp(24px, 10vw, 120px);
+      text-align: center;
+    }
+    .testimonial-quote {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3.5vw, 48px);
+      font-weight: 300;
+      letter-spacing: -.025em;
+      line-height: 1.25;
+      color: var(--bg);
+      quotes: none;
+      margin-bottom: 36px;
+    }
+    .t-name {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--bg);
+    }
+    .t-title {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .05em;
+      color: rgba(14,14,12,.6);
+      margin-top: 4px;
+    }
+    .t-company {
+      display: block;
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -.015em;
+      color: var(--bg);
+      margin-top: 14px;
+    }
+
+    /* ── Footer ─────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .footer-line {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: rgba(242,237,227,.25);
+      letter-spacing: .04em;
+    }
+    .footer-heart { color: rgba(242,237,227,.4); }
+
+    /* ── Scroll reveal ──────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ── Let's Talk button ──────────────── */
+    .lets-talk-btn {
+      background: none;
+      border: 1px solid rgba(242,237,227,.22);
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-family: var(--sans);
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      cursor: none;
+      transition: border-color .25s, color .25s;
+    }
+    .lets-talk-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Intake form ────────────────────── */
+    .intake-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 36px;
+    }
+    .itag {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 9px 18px;
+      border-radius: 100px;
+      font-family: var(--sans);
+      font-size: 13px; font-weight: 600;
+      letter-spacing: .05em;
+      cursor: none;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .itag:hover  { border-color: rgba(198,241,53,.4); color: var(--text); }
+    .itag.on     { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .intake-confirm {
+      display: none;
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+    .intake-confirm .confirm-icon { font-size: 40px; margin-bottom: 16px; }
+    .intake-confirm h3 {
+      font-family: var(--serif);
+      font-size: 28px; font-weight: 300;
+      letter-spacing: -.02em; margin-bottom: 10px;
+    }
+    .intake-confirm h3 em { font-style: italic; color: var(--accent); }
+    .intake-confirm p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .intake-error {
+      font-size: 12px; color: #ff6b6b;
+      margin-top: -24px; margin-bottom: 16px;
+      display: none;
+    }
+
+    /* ── Mobile ─────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-right a { display: none; }
+      .lets-talk-btn { display: none; }
+      /* hero: shift down ~100px from center, scroll pins to bottom */
+      .hero {
+        position: relative;
+        justify-content: flex-start;
+        padding: 210px 24px 100px;
+      }
+      .hero-scroll {
+        position: absolute;
+        bottom: 36px;
+        left: 0; right: 0;
+        align-items: center;
+        margin-top: 0;
+      }
+      .wrap { padding: 0 24px; }
+      section { padding: 88px 0; }
+      .about-grid, .studio-layout { grid-template-columns: 1fr; gap: 52px; }
+      .work-item { grid-template-columns: 36px 1fr; }
+      .work-tags { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"      id="cursor"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <!-- ── Intake Modal ──────────────────── -->
+  <div class="modal-overlay" id="intakeModal">
+    <div class="modal-box">
+      <button class="modal-close" id="intakeClose" aria-label="Close">×</button>
+
+      <!-- Form state -->
+      <div id="intakeForm">
+        <p class="modal-tag">Start a Project</p>
+        <h2 class="modal-title">What are you <em>interested in?</em></h2>
+        <p class="modal-body" style="margin-bottom:0">Pick everything that applies — I'll come prepared.</p>
+        <div class="intake-grid">
+          <button class="itag">UX</button>
+          <button class="itag">UI</button>
+          <button class="itag">Branding</button>
+          <button class="itag">Prototyping</button>
+          <button class="itag">User Testing</button>
+          <button class="itag">Research</button>
+          <button class="itag">Design System</button>
+          <button class="itag">Leadership</button>
+        </div>
+        <p class="intake-error" id="intakeError">Please select at least one area.</p>
+        <button class="modal-cta" id="intakeSubmit" style="border:none;cursor:none;">
+          Send my interests &nbsp;→
+        </button>
+      </div>
+
+      <!-- Confirmation state -->
+      <div class="intake-confirm" id="intakeConfirm">
+        <div class="confirm-icon">✦</div>
+        <h3>You're in good <em>hands.</em></h3>
+        <p>Your email client should be open — just hit send and I'll be in touch within 24 hours. Looking forward to it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Design Therapy Modal ─────────── -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <p class="modal-tag">Complimentary · 15 Minutes</p>
+      <h2 class="modal-title">Free <em>Design Therapy</em> Session</h2>
+      <p class="modal-body">
+        Stuck on a product, a brand, or just not sure where to start? Bring your messiest problem. In 15 minutes, we'll untangle the core challenge and leave you with a clear direction — no strings attached.
+      </p>
+      <a href="mailto:amos@warshawskis.com?subject=Design%20Therapy%20Session&body=Hi%20Amos%2C%20I%27d%20love%20to%20book%20a%20free%2015-min%20Design%20Therapy%20session!" class="modal-cta">
+        Book your session &nbsp;→
+      </a>
+      <p class="modal-note">Calendar booking coming soon — for now, drop a note and we'll find a time.</p>
+    </div>
+  </div>
+
+  <!-- ── Nav ──────────────────────────── -->
+  <nav>
+    <a href="#" class="nav-logo">Amos Shaw</a>
+    <div class="nav-right">
+      <a href="#work">Projects</a>
+      <a href="#about">About</a>
+      <a href="#studio">Fractional</a>
+      <button class="lets-talk-btn" id="letsTalkBtn" aria-label="Start a project">Let's Talk</button>
+      <button class="gift-btn" id="giftBtn" aria-label="Book a free Design Therapy session" title="Free 15-min Design Therapy session">
+        🎁
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────── -->
+  <div class="hero">
+    <h1 class="hero-headline">
+      <span class="line line-big">
+        <span class="line-inner">Design</span>
+      </span>
+      <span class="line line-meets">
+        <span class="line-inner">meets</span>
+      </span>
+      <span class="line line-big">
+        <span class="line-inner">
+          <span class="word-spin" id="spinner" aria-label="play">
+            <span class="word-spin-track" id="spinTrack">
+              <span>play.</span>
+              <span>story.</span>
+              <span>craft.</span>
+              <span>care.</span>
+              <span>play.</span><!-- duplicate for seamless reset -->
+            </span>
+          </span>
+        </span>
+      </span>
+    </h1>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-bar"></div>
+      <span>Scroll</span>
+    </div>
+  </div>
+
+  <!-- ── Projects ──────────────────────── -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-label">Selected Projects</span>
+        <span class="section-aside">06 projects</span>
+      </div>
+
+      <ul class="work-list">
+
+        <li class="work-item reveal">
+          <span class="work-num">01</span>
+          <div>
+            <h2 class="work-name">Maclean's Education</h2>
+            <p class="work-blurb">Turned Canada's most iconic magazine brand into an immersive e-learning platform for students and educators.</p>
+            <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/1a5f6d24" target="_blank" rel="noopener">View Case Study →</a>
+          </div>
+          <div class="work-tags">
+            <span class="tag">e-Learning</span>
+            <span class="tag">Brand</span>
+          </div>
+        </li>
+
+        <li class="work-item reveal">
+          <span class="work-num">02</span>
+          <div>
+            <h2 class="work-name">RBC Mobile</h2>
+            <p class="work-blurb">Redesigned a core fintech product to make credit data genuinely readable and actionable for millions of Canadians.</p>
+            <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/02aa1126" target="_blank" rel="noopener">View Case Study →</a>
+          </div>
+          <div class="work-tags">
+            <span class="tag">Fintech</span>
+            <span class="tag">UX</span>
+          </div>
+        </li>
+
+        <li class="work-item reveal">
+          <span class="work-num">03</span>
+          <div>
+            <h2 class="work-name">Chatelaine Horoscopes</h2>
+            <p class="work-blurb">Reimagined a beloved editorial feature as a digital-first interactive experience that readers couldn't stop coming back to.</p>
+            <p class="work-stat">↑ PPS 1.2 → 2.0+</p>
+          </div>
+          <div class="work-tags">
+            <span class="tag">Product</span>
+            <span class="tag">Interactive</span>
+          </div>
+        </li>
+
+        <li class="work-item reveal">
+          <span class="work-num">04</span>
+          <div>
+            <h2 class="work-name">Toronto Star Sports+</h2>
+            <p class="work-blurb">Redesigned a premium sports experience from scratch — 42 new pages, dramatically more time spent and traffic earned.</p>
+            <a class="work-stat" href="https://uxfol.io/home/portfolios/warshawskis/p/048f12ad" target="_blank" rel="noopener">View Case Study →</a>
+          </div>
+          <div class="work-tags">
+            <span class="tag">Editorial</span>
+            <span class="tag">UX</span>
+          </div>
+        </li>
+
+        <li class="work-item reveal">
+          <span class="work-num">05</span>
+          <div>
+            <h2 class="work-name">Toronto Life Design System</h2>
+            <p class="work-blurb">Built and scaled a multi-brand design system across SJC Media's portfolio — cutting dev time while measurably lifting engagement.</p>
+            <p class="work-stat">↓ 15% dev time &nbsp; · &nbsp; ↑ 8% engagement</p>
+          </div>
+          <div class="work-tags">
+            <span class="tag">Systems</span>
+            <span class="tag">Editorial</span>
+          </div>
+        </li>
+
+        <li class="work-item reveal">
+          <span class="work-num">06</span>
+          <div>
+            <h2 class="work-name">AutoAlign.ai</h2>
+            <p class="work-blurb">End-to-end product design for an AI-powered onboarding and team alignment platform — from zero to launch as sole design lead.</p>
+            <p class="work-stat">AI · Product Design · 2024–present</p>
+          </div>
+          <div class="work-tags">
+            <span class="tag">AI</span>
+            <span class="tag">Product</span>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── About ─────────────────────────── -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+
+        <div class="reveal">
+          <h2 class="about-hed">Design is a<br><em>contact sport.</em></h2>
+          <div class="stats">
+            <div>
+              <div class="stat-n">25+</div>
+              <div class="stat-l">Years in the game</div>
+            </div>
+            <div>
+              <div class="stat-n">23M+</div>
+              <div class="stat-l">Canadians reached</div>
+            </div>
+            <div>
+              <div class="stat-n">90M+</div>
+              <div class="stat-l">Users (Wattpad)</div>
+            </div>
+            <div>
+              <div class="stat-n">30K</div>
+              <div class="stat-l">Employees (Sun Life)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-body reveal">
+          <p>Currently working as a Lead UX Designer at St. Joseph Media, providing Product Design and UX Research to Canada's most amazing publications, including Maclean's, Toronto Life, Chatelaine, Fashion and Today's Parent.</p>
+          <p>I use the power of Design &amp; Play to solve problems and build products&nbsp;+ experiences. Above average on the Noisy scale. Prone to losing pens.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonial ──────────────────────── -->
+  <section class="testimonial-section">
+    <div class="wrap">
+      <div class="testimonial-inner">
+        <blockquote class="testimonial-quote">"Amos transformed our design team, and improved our metrics across the board."</blockquote>
+        <span class="t-name">Michael Galliano</span>
+        <span class="t-title">VP, Product</span>
+        <span class="t-company">St. Joseph's Media</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Fractional ─────────────────────── -->
+  <section id="studio">
+    <div class="wrap">
+      <div class="studio-layout">
+
+        <div class="reveal">
+          <h2 class="studio-hed">
+            Design to<br>the Rescue
+            <span>What is fractional?</span>
+          </h2>
+        </div>
+
+        <div class="reveal">
+          <p class="studio-body">I provide fractional design leadership and services for teams. I embed as a strategic partner — thinking, building, and leading alongside your team from day one, without the full-time overhead.</p>
+
+          <ul class="services">
+            <li><span class="plus">+</span> UX/UI Design &amp; Product Strategy</li>
+            <li><span class="plus">+</span> Brand Identity &amp; Creative Direction</li>
+            <li><span class="plus">+</span> Design System Architecture</li>
+            <li><span class="plus">+</span> Team Leadership &amp; Mentorship</li>
+            <li><span class="plus">+</span> Design Sprints &amp; Workshop Facilitation</li>
+          </ul>
+
+          <a href="mailto:amos@warshawskis.com" class="cta-btn">
+            Let's talk &nbsp;→
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────── -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-line">
+        <span>© 2026 Amos Shaw</span>
+        <span>·</span>
+        <span>Made with <span class="footer-heart">♥</span> in Toronto</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Cursor ─────────────────────────────────────────────
+    const cur  = document.getElementById('cursor');
+    const ring = document.getElementById('ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx + 'px';
+      cur.style.top  = my + 'px';
+    });
+
+    (function tick() {
+      rx += (mx - rx) * .11;
+      ry += (my - ry) * .11;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(tick);
+    })();
+
+    document.querySelectorAll('a, .work-item, button, .services li').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
+    });
+
+    // ── Intake modal ───────────────────────────────────────
+    const intakeModal   = document.getElementById('intakeModal');
+    const letsTalkBtn   = document.getElementById('letsTalkBtn');
+    const intakeClose   = document.getElementById('intakeClose');
+    const intakeSubmit  = document.getElementById('intakeSubmit');
+    const intakeTags    = document.querySelectorAll('.itag');
+    const intakeConfirm = document.getElementById('intakeConfirm');
+    const intakeForm    = document.getElementById('intakeForm');
+    const intakeError   = document.getElementById('intakeError');
+
+    function openIntake() {
+      // Reset state each time
+      intakeForm.style.display = 'block';
+      intakeConfirm.style.display = 'none';
+      intakeTags.forEach(t => t.classList.remove('on'));
+      intakeError.style.display = 'none';
+      intakeModal.classList.add('open');
+    }
+
+    letsTalkBtn.addEventListener('click', openIntake);
+    intakeClose.addEventListener('click', () => intakeModal.classList.remove('open'));
+    intakeModal.addEventListener('click', e => {
+      if (e.target === intakeModal) intakeModal.classList.remove('open');
+    });
+
+    intakeTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        tag.classList.toggle('on');
+        intakeError.style.display = 'none';
+      });
+    });
+
+    intakeSubmit.addEventListener('click', () => {
+      const selected = [...intakeTags]
+        .filter(t => t.classList.contains('on'))
+        .map(t => t.textContent.trim());
+
+      if (selected.length === 0) {
+        intakeError.style.display = 'block';
+        return;
+      }
+
+      const subject = encodeURIComponent('Portfolio Inquiry — ' + selected.join(', '));
+      const body    = encodeURIComponent(
+        'Hi Amos,\n\nI found your portfolio and I\'m interested in:\n\n  • ' +
+        selected.join('\n  • ') +
+        '\n\nLet\'s connect!\n\n[Your name & contact here]'
+      );
+      window.open(`mailto:amos@warshawskis.com?subject=${subject}&body=${body}`);
+
+      // Show confirmation
+      intakeForm.style.display = 'none';
+      intakeConfirm.style.display = 'block';
+    });
+
+    // ── Design Therapy modal ───────────────────────────────
+    const modal      = document.getElementById('modal');
+    const giftBtn    = document.getElementById('giftBtn');
+    const modalClose = document.getElementById('modalClose');
+
+    giftBtn.addEventListener('click',    () => modal.classList.add('open'));
+    modalClose.addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.classList.remove('open');
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('open');
+        intakeModal.classList.remove('open');
+      }
+    });
+
+    // ── Word spinner ───────────────────────────────────────
+    const track = document.getElementById('spinTrack');
+    const words  = track.querySelectorAll('span');
+    let   idx    = 0;
+    let   spanPx = 0; // measured pixel height of each span
+
+    function sizeSpinner() {
+      const h = words[0].getBoundingClientRect().height;
+      if (h > 0) {
+        spanPx = h;
+        document.getElementById('spinner').style.height = h + 'px';
+      }
+    }
+    window.addEventListener('load',   sizeSpinner);
+    window.addEventListener('resize', sizeSpinner);
+    // Measure after fonts have loaded
+    document.fonts ? document.fonts.ready.then(sizeSpinner) : setTimeout(sizeSpinner, 400);
+    setTimeout(sizeSpinner, 600); // fallback
+
+    setInterval(() => {
+      idx++;
+      if (idx >= words.length - 1) {
+        setTimeout(() => {
+          track.style.transition = 'none';
+          track.style.transform  = 'translateY(0)';
+          idx = 0;
+        }, 750);
+      }
+      track.style.transition = 'transform .75s cubic-bezier(.76,0,.24,1)';
+      // Use measured pixels so translation exactly matches span height
+      const offset = spanPx > 0 ? `${idx * spanPx}px` : `${idx * 1.45}em`;
+      track.style.transform  = `translateY(-${offset})`;
+    }, 2600);
+
+    // ── Scroll reveal ──────────────────────────────────────
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i * 60) + 'ms';
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Stagger work items
+    document.querySelectorAll('.work-item').forEach((el, i) => {
+      el.style.transitionDelay = (i * 55) + 'ms';
+    });
+  </script>
+</body>
+</html>

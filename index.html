@@ -620,16 +620,8 @@
       gap: 14px;
     }
     .services li {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      font-size: 15px; color: var(--muted);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 14px;
-      transition: color .25s;
+      display: block;
     }
-    .services li:hover { color: var(--text); }
-    .services li .plus { color: var(--accent); font-weight: 800; }
 
     .cta-btn {
       display: inline-flex;
@@ -743,8 +735,8 @@
     }
 
     /* ── Fractional Services ────────────── */
-    .service-item { list-style: none; border-bottom: 1px solid rgba(14,14,12,.15); }
-    .service-item:first-child { border-top: 1px solid rgba(14,14,12,.15); }
+    .service-item { list-style: none; border-bottom: 1px solid var(--border); }
+    .service-item:first-child { border-top: 1px solid var(--border); }
     .service-toggle {
       width: 100%;
       display: flex;
@@ -752,11 +744,11 @@
       gap: 12px;
       background: none;
       border: none;
-      color: var(--bg);
-      font-family: var(--sans);
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: -.01em;
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -.02em;
       padding: 18px 0;
       cursor: pointer;
       text-align: left;
@@ -767,8 +759,8 @@
       font-size: 22px;
       font-weight: 300;
       line-height: 1;
-      color: var(--bg);
-      transition: transform .3s, color .3s;
+      color: var(--accent);
+      transition: transform .3s;
       display: inline-block;
       width: 20px;
       flex-shrink: 0;
@@ -787,17 +779,22 @@
     .service-detail p {
       font-size: 15px;
       line-height: 1.65;
-      color: rgba(14,14,12,.8);
+      color: var(--muted);
       margin-bottom: 10px;
     }
     .service-output {
       display: inline-block;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--muted);
+    }
+    .out-label {
+      color: var(--accent);
+      font-weight: 700;
       letter-spacing: .06em;
       text-transform: uppercase;
-      color: var(--bg);
-      opacity: .5;
+      font-size: 11px;
     }
 
     /* ── Footer ─────────────────────────── */
@@ -1316,23 +1313,23 @@
           <ul class="services">
             <li class="service-item">
               <button class="service-toggle"><span class="plus">+</span> UX/UI Design &amp; Product Strategy</button>
-              <div class="service-detail"><p>From research to developer-ready interfaces. I map user flows, validate concepts fast, and deliver screens that move.</p><span class="service-output">Output: UX audit · wireframes · hi-fi prototype</span></div>
+              <div class="service-detail"><p>From research to developer-ready interfaces. I map user flows, validate concepts fast, and deliver screens that move.</p><span class="service-output"><span class="out-label">Output →</span> UX audit · wireframes · hi-fi prototype</span></div>
             </li>
             <li class="service-item">
               <button class="service-toggle"><span class="plus">+</span> Brand Identity &amp; Creative Direction</button>
-              <div class="service-detail"><p>Building the visual and verbal language of your brand — from logo systems to full creative playbooks teams actually use.</p><span class="service-output">Output: brand guide · logo suite · creative direction</span></div>
+              <div class="service-detail"><p>Building the visual and verbal language of your brand — from logo systems to full creative playbooks teams actually use.</p><span class="service-output"><span class="out-label">Output →</span> brand guide · logo suite · creative direction</span></div>
             </li>
             <li class="service-item">
               <button class="service-toggle"><span class="plus">+</span> Design System Architecture</button>
-              <div class="service-detail"><p>Scalable, documented component libraries that cut dev time and keep your product consistent at scale.</p><span class="service-output">Output: component library · Figma tokens · governance guide</span></div>
+              <div class="service-detail"><p>Scalable, documented component libraries that cut dev time and keep your product consistent at scale.</p><span class="service-output"><span class="out-label">Output →</span> component library · Figma tokens · governance guide</span></div>
             </li>
             <li class="service-item">
               <button class="service-toggle"><span class="plus">+</span> Team Leadership &amp; Mentorship</button>
-              <div class="service-detail"><p>Embedded design leadership without the full-time cost. I build process, grow talent, and align design with product goals.</p><span class="service-output">Output: design process doc · critique frameworks · team rituals</span></div>
+              <div class="service-detail"><p>Embedded design leadership without the full-time cost. I build process, grow talent, and align design with product goals.</p><span class="service-output"><span class="out-label">Output →</span> design process doc · critique frameworks · team rituals</span></div>
             </li>
             <li class="service-item">
               <button class="service-toggle"><span class="plus">+</span> Design Sprints &amp; Workshop Facilitation</button>
-              <div class="service-detail"><p>Fast, structured sessions that align teams and unlock solutions in days, not months.</p><span class="service-output">Output: sprint report · concept prototypes · decision frameworks</span></div>
+              <div class="service-detail"><p>Fast, structured sessions that align teams and unlock solutions in days, not months.</p><span class="service-output"><span class="out-label">Output →</span> sprint report · concept prototypes · decision frameworks</span></div>
             </li>
           </ul>
 

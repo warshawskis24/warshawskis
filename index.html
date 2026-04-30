@@ -191,20 +191,21 @@
 
     /* ── Modal ──────────────────────────── */
     .modal-overlay {
+      display: none;
       position: fixed; inset: 0;
       background: rgba(14,14,12,.88);
       backdrop-filter: blur(12px);
       z-index: 8000;
-      display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .35s ease;
     }
     .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
+      display: flex !important;
+      animation: modalIn .35s ease forwards;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
     .modal-box {
       background: #18180F;
@@ -214,10 +215,12 @@
       max-width: 520px;
       width: 90%;
       position: relative;
-      transform: translateY(20px);
-      transition: transform .4s cubic-bezier(.16,1,.3,1);
+      animation: modalSlideIn .4s cubic-bezier(.16,1,.3,1) forwards;
     }
-    .modal-overlay.open .modal-box { transform: translateY(0); }
+    @keyframes modalSlideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
 
     .modal-close {
       position: absolute; top: 20px; right: 24px;
@@ -1001,7 +1004,7 @@
   <div class="cursor-ring" id="ring"></div>
 
   <!-- ── Intake Modal ──────────────────── -->
-  <div class="modal-overlay" id="intakeModal">
+  <div class="modal-overlay" id="intakeModal" style="display:none">
     <div class="modal-box">
       <button class="modal-close" id="intakeClose" aria-label="Close">×</button>
 
@@ -1036,7 +1039,7 @@
   </div>
 
   <!-- ── Design Therapy Modal ─────────── -->
-  <div class="modal-overlay" id="modal">
+  <div class="modal-overlay" id="modal" style="display:none">
     <div class="modal-box">
       <button class="modal-close" id="modalClose" aria-label="Close">×</button>
       <p class="modal-tag">Complimentary · 15 Minutes</p>
@@ -1268,10 +1271,9 @@
         </div>
 
         <div class="about-body reveal">
-          <p>Currently Lead UX Designer at St. Joseph Media — designing across Canada's most beloved publications including Maclean's, Toronto Life, Chatelaine, Fashion, and Today's Parent.</p>
-          <p>Alongside that, I work fractionally with startups and teams navigating the AI space. Currently embedded with <a href="https://autoalign.ai" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">AutoAlign.ai</a>, helping shape product and brand from zero to launch.</p>
-          <p>Outside of client work, I channel everything into experience design. <a href="#" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Rat Race</a> is my latest side project — a design-led real-world experience. Stay tuned.</p>
-          <p>I use Design + Play to solve problems and build things people remember. Above average on the Noisy scale. Prone to losing pens.</p>
+          <p>Currently Lead UX Designer at St. Joseph Media, designing across Canada's most beloved publications — Maclean's, Toronto Life, Chatelaine, Fashion, and Today's Parent.</p>
+          <p>Alongside that, I work fractionally with startups and teams navigating the AI space and tech more broadly.</p>
+          <p>Outside of client work, I'm producing a live event challenge in the PATH called <a href="https://lu.ma/zaozpkdu" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Rat Race</a> — running for both Tech Week and Toronto Games Week. I'm passionate about using the power of design to make positive change in the world. If you have a project you need help with, don't be shy. I work with companies and products of all shapes and sizes, including non-profits.</p>
         </div>
 
       </div>

@@ -993,6 +993,20 @@
       .work-tags { display: none; }
       .testimonial-inner { padding: 0 clamp(16px, 6vw, 80px); }
     }
+
+    /* ── Archive grid ───────────────────── */
+    .arch-grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 32px; }
+    .arch-card { display: block; text-decoration: none; color: var(--text); }
+    .arch-img { display: block; aspect-ratio: 808 / 632; overflow: hidden; border-radius: 6px; background: #16160F; margin-bottom: 18px; }
+    .arch-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85); transition: transform .6s ease, filter .4s; }
+    .arch-card:hover .arch-img img { transform: scale(1.04); filter: saturate(1.05); }
+    .arch-meta { display: flex; gap: 12px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .arch-year { color: var(--accent); }
+    .arch-name { display: block; font-family: var(--serif); font-size: 26px; line-height: 1.15; margin: 8px 0 6px; transition: color .2s; }
+    .arch-card:hover .arch-name { color: var(--accent); }
+    .arch-blurb { display: block; font-size: 14px; line-height: 1.55; color: var(--muted); }
+    @media (max-width: 900px) { .arch-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .arch-grid { grid-template-columns: 1fr; gap: 44px; } }
   </style>
 </head>
 <body>
@@ -1242,6 +1256,60 @@
           </div>
         </li>
 
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Archive (migrated from Behance / Adobe Portfolio) ── -->
+  <section id="archive">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-label">From the Archive</span>
+        <span class="section-aside">07 more projects</span>
+      </div>
+      <ul class="arch-grid">
+        <li class="reveal"><a class="arch-card" href="archive/rat-race/">
+          <span class="arch-img"><img src="archive/rat-race/images/cover.jpg" alt="" loading="lazy" width="808" height="714"></span>
+          <span class="arch-meta"><span class="arch-year">2026</span><span class="arch-client">Live-Action Puzzle Hunt</span></span>
+          <span class="arch-name">Rat Race</span>
+          <span class="arch-blurb">A live-action puzzle hunt through Toronto’s PATH network — part scavenger hunt, part street theatre.</span>
+        </a></li>
+        <li class="reveal"><a class="arch-card" href="archive/the-next-supergeek/">
+          <span class="arch-img"><img src="archive/the-next-supergeek/images/cover.jpg" alt="" loading="lazy" width="1192" height="933"></span>
+          <span class="arch-meta"><span class="arch-year">2014</span><span class="arch-client">CBC Kids · TFO</span></span>
+          <span class="arch-name">The Next SuperGeek</span>
+          <span class="arch-blurb">Live events, challenges and a web series celebrating the zany creativity in all things Geek.</span>
+        </a></li>
+        <li class="reveal"><a class="arch-card" href="archive/imaginary-friends/">
+          <span class="arch-img"><img src="archive/imaginary-friends/images/cover.jpg" alt="" loading="lazy" width="1141" height="893"></span>
+          <span class="arch-meta"><span class="arch-year">2015</span><span class="arch-client">Stitch Media</span></span>
+          <span class="arch-name">Imaginary Friends</span>
+          <span class="arch-blurb">A platform bringing reading, games and real-life activities together for kids.</span>
+        </a></li>
+        <li class="reveal"><a class="arch-card" href="archive/wattpad/">
+          <span class="arch-img"><img src="archive/wattpad/images/cover.jpg" alt="" loading="lazy" width="404" height="316"></span>
+          <span class="arch-meta"><span class="arch-year">2012</span><span class="arch-client">Mobile &amp; Community</span></span>
+          <span class="arch-name">Wattpad</span>
+          <span class="arch-blurb">Design for the world’s largest community of readers and writers.</span>
+        </a></li>
+        <li class="reveal"><a class="arch-card" href="archive/tineye/">
+          <span class="arch-img"><img src="archive/tineye/images/cover.jpg" alt="" loading="lazy" width="404" height="316"></span>
+          <span class="arch-meta"><span class="arch-year">2014</span><span class="arch-client">Reverse Image Search</span></span>
+          <span class="arch-name">TinEye</span>
+          <span class="arch-blurb">Product design for one of the world’s best reverse image search platforms.</span>
+        </a></li>
+        <li class="reveal"><a class="arch-card" href="archive/study-soup/">
+          <span class="arch-img"><img src="archive/study-soup/images/cover.jpg" alt="" loading="lazy" width="1400" height="1098"></span>
+          <span class="arch-meta"><span class="arch-year">2016</span><span class="arch-client">EdTech Marketplace</span></span>
+          <span class="arch-name">Study Soup</span>
+          <span class="arch-blurb">An online marketplace for students to buy and sell their notes.</span>
+        </a></li>
+        <li class="reveal"><a class="arch-card" href="archive/lifemark/">
+          <span class="arch-img"><img src="archive/lifemark/images/cover.jpg" alt="" loading="lazy" width="1511" height="1182"></span>
+          <span class="arch-meta"><span class="arch-year">2015</span><span class="arch-client">Healthcare App</span></span>
+          <span class="arch-name">LifeMark</span>
+          <span class="arch-blurb">Mobile app design for LifeMark Health.</span>
+        </a></li>
       </ul>
     </div>
   </section>
